@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "description": "Sika education scrimmage",
   "scripts": {
-    "test": "docker-compose -f docker-compose.yml -f docker-compose.cypress-run.yml up --exit-code-from cypress",
+    "test": "npm run test:frontend && npm run test:backend && docker-compose -f docker-compose.yml -f docker-compose.cypress-run.yml up --exit-code-from cypress",
     "test:gui": "xhost +local: && docker-compose -f docker-compose.yml -f docker-compose.cypress-run.yml -f docker-compose.cypress-open.yml up --exit-code-from cypress",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
     "dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
     "start": "docker-compose up",
     "lint": "cd app && npm run lint"
