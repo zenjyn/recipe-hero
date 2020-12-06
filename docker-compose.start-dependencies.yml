@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  start-dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - frontend
+      - backend
+    command: frontend:80 backend:80

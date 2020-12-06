@@ -4,22 +4,22 @@ services:
     depends_on:
       - backend
     build:
-      context: ./client
+      context: ./frontend
     ports:
     - "8090:80"
     environment:
     - "VUE_APP_API_BASE_URL=https://api.sikaeducation.com"
     - "PORT=80"
     volumes:
-    - "./client:/app"
+    - "./frontend:/app"
     command: /bin/sh -c "npm install && npm run serve"
   backend:
     build:
-      context: ./api
+      context: ./backend
     environment:
     - "PORT=80"
     ports:
     - "8091:80"
     volumes:
-    - "./api:/app"
+    - "./backend:/app"
     command: /bin/sh -c "npm install && npm start"

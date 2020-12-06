@@ -1,8 +1,8 @@
 version: "3.7"
 services:
-  frontend:
+  client:
     environment:
       - "VUE_APP_API_BASE_URL=http://localhost:8091"
-  backend:
+  api:
     environment:
     - "NODE_ENV=development"
