@@ -1,26 +1,13 @@
 <template>
   <div id="the-app">
-    <header>
-      <h1>Recipe Hero</h1>
-    </header>
+    <AppHeader />
     <main>
-      <section class="ingredient-search">
-        <h2>Search Recipes By Ingredient</h2>
-        <form>
-          <input placeholder="Add an ingredient" />
-          <button><FontAwesomeIcon icon="plus" /></button>
-        </form>
-        <ul class="ingredients">
-          <li class="ingredient">
-            <span>Eggs</span>
-            <FontAwesomeIcon class="icon" icon="minus-circle" />
-          </li>
-          <li class="ingredient">
-            <span>Bread</span>
-            <FontAwesomeIcon class="icon" icon="minus-circle" />
-          </li>
-        </ul>
-      </section>
+      <IngredientSearch
+        :availableIngredients="availableIngredients"
+        :selectedIngredients="selectedIngredients"
+        @remove-ingredient="removeIngredient"
+        @add-ingredient="addIngredient"
+      />
       <ul class="recipes">
         <li>
           <div class="recipe">
@@ -57,12 +44,39 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import AppHeader from '@/components/AppHeader.vue';
+import IngredientSearch from '@/components/IngredientSearch.vue';
+
+import { difference } from 'lodash/fp';
 
 export default {
   name: 'App',
   components: {
-    FontAwesomeIcon,
+    AppHeader,
+    IngredientSearch,
+  },
+  data() {
+    return {
+      ingredients: ['Bread', 'Eggs'],
+      selectedIngredients: [],
+    };
+  },
+  computed: {
+    availableIngredients() {
+      return difference(this.ingredients, this.selectedIngredients);
+    },
+  },
+  methods: {
+    addIngredient(ingredient) {
+      this.selectedIngredients = [
+        ...this.selectedIngredients,
+        ingredient,
+      ];
+    },
+    removeIngredient(ingredient) {
+      this.selectedIngredients = this.selectedIngredients
+        .filter((selectedIngredient) => selectedIngredient !== ingredient);
+    },
   },
 };
 </script>
@@ -83,58 +97,11 @@ body {
   header, main {
     width: 100%;
   }
-  header {
-    padding: $xl 0;
-    h1 {
-      @include heading-font-1;
-      text-align: center;
-    }
-  }
   main {
     margin-bottom: $xxxl;
   }
   img {
     border-radius: $border-radius;
-  }
-  .ingredient-search {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    margin-bottom: $xl;
-    form {
-      border-radius: $border-radius;
-      border: 1px solid $grey-8;
-      input, button {
-        border: none;
-        height: 100%;
-      }
-      input {
-        padding: $small;
-        margin-bottom: $baseline;
-      }
-      button {
-        cursor: pointer;
-        background-color: $primary-color-5;
-        color: $white;
-        padding: $baseline;
-        border-radius-top-right: $border-radius;
-        border-radius-bottom-right: $border-radius;
-      }
-    }
-    .ingredients {
-      width: 270px;
-      list-style: disc inside;
-      .ingredient {
-        border-radius: $border-radius;
-        padding: $small 0;
-        display: flex;
-        justify-content: space-between;
-        .icon {
-          color: $grey-5;
-          cursor: pointer;
-        }
-      }
-    }
   }
   h2 {
     @include heading-font-2;
