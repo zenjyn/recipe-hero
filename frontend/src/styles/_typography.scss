@@ -17,6 +17,11 @@
   font-size: $font-xxxxxl;
   letter-spacing: -2px;
 }
+@mixin heading-font-2 {
+  font-family: "Gill Sans", sans-serif;
+  font-size: $font-xxl;
+  margin-bottom: $font-xxl;
+}
 
 @mixin hero-font-1 {
   font-family: "Gill Sans Condensed", sans-serif;
