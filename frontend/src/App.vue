@@ -1,98 +1,208 @@
 <template>
   <div id="the-app">
-    <AppHeader />
+    <header class="app-header">
+      <h1>Recipe Hero</h1>
+    </header>
     <main>
-      <IngredientSearch
-        :availableIngredients="availableIngredients"
-        :selectedIngredients="selectedIngredients"
-        @remove-ingredient="removeIngredient"
-        @add-ingredient="addIngredient"
-      />
-      <ul
-        class="recipes"
-        v-if="matchingRecipes.length"
-      >
-        <li v-for="recipe in matchingRecipes" :key="recipe.name">
-          <RecipeCard :recipe="recipe" />
+      <section class="ingredient-search">
+        <h2>Search Recipes By Ingredient</h2>
+        <form class="ingredient-picker">
+          <select placeholder="Add an ingredient">
+            <option disabled="">Pick an ingredient</option>
+          </select>
+          <button>
+            <FontAwesomeIcon icon="plus" class="icon" />
+          </button>
+        </form>
+        <ul class="ingredients">
+          <li class="recipe-ingredient">
+            <span>Eggs</span>
+            <FontAwesomeIcon icon="minus-circle" class="icon" />
+          </li>
+          <li class="recipe-ingredient">
+            <span>Bread</span>
+            <FontAwesomeIcon icon="minus-circle" class="icon" />
+          </li>
+          <li class="recipe-ingredient">
+            <span>Cheese</span>
+            <FontAwesomeIcon icon="minus-circle" class="icon" />
+          </li>
+          <li class="recipe-ingredient">
+            <span>Bacon</span>
+            <FontAwesomeIcon icon="minus-circle" class="icon" />
+          </li>
+        </ul>
+      </section>
+      <ul class="recipes">
+        <li>
+          <div class="recipe-card">
+            <h2>Framed Eggs</h2>
+            <div class="recipe-description">
+              <img src="images/framed-egg.jpg">
+              <p>
+                Egg in frame or toad in the hole—whatever you choose to call it, this recipe
+                is a super fun way to spruce up the classic eggs and toast breakfast. Leave
+                the yolks slightly runny so you can dip those crusty cutouts and sop up all
+                the golden goodness on your plate!
+              </p>
+            </div>
+            <ul class="recipe-step-indicator">
+              <li class="active">1</li>
+              <li class="">2</li>
+              <li class="">3</li>
+              <li class="">4</li>
+              <li class="">5</li>
+              <li class="">6</li>
+            </ul>
+            <div class="recipe-step">
+              <p>
+                Cut out center of each bread slice using a 2 1/2- to 3-inch heart, round,
+                or other shaped cookie cutter. Set slices aside, reserving both bread and cutouts.
+              </p>
+              <img src="/images/framed-egg-1.jpg" alt="Step 1">
+            </div>
+            <div class="command-bar">
+              <!-- Placeholder to keep flex style --><span></span><button>Next</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="recipe-card">
+            <h2>Cheesy Eggs</h2>
+            <div class="recipe-description">
+              <img src="images/cheesy-eggs.jpg">
+              <p>
+                Some recipes are deceptively simple. Although I first learnt how to make
+                scrambled eggs with cheese when I was about 13, I just really did not
+                know how great they could and would become.
+              </p>
+            </div>
+            <ul class="recipe-step-indicator">
+              <li class="active">1</li>
+              <li class="">2</li>
+            </ul>
+            <div class="recipe-step">
+              <p>
+                In a large nonstick pan with sloped sides (even a wok shape works), melt
+                the butter over medium-low heat, being careful to not brown the butter.
+                If it begins to bubble, the heat is too high, so lower the heat to cook
+                the eggs properly. (Slow and low like BBQ is the way to go with eggs.)
+              </p>
+              <img src="/images/greased-skillet.jpg" alt="Step 1">
+            </div>
+            <div class="command-bar">
+              <!-- Placeholder to keep flex style --><span></span><button>Next</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="recipe-card">
+            <h2>Toast</h2>
+            <div class="recipe-description">
+              <img src="images/bread.jpg">
+              <p>
+                Toast is almost as old as civilization itself, made by the early Egyptians
+                to put some spark back in stale bread. It's still one of the most versatile,
+                delicious, and completely perfect snacks for breakfast or as a side at any meal.
+                You can make toast from any kind of bread in the toaster, in the oven, over
+                a fire, and learn to top with a variety of different things to your taste.
+                See Step 1 to learn more about making toast.
+              </p>
+            </div>
+            <ul class="recipe-step-indicator">
+              <li class="active">1</li>
+              <li class="">2</li>
+              <li class="">3</li>
+            </ul>
+            <div class="recipe-step">
+              <p>Place toast in toaster</p>
+              <img src="/images/framed-egg-2.jpg" alt="Step 1">
+            </div>
+            <div class="command-bar">
+              <!-- Placeholder to keep flex style --><span></span><button>Next</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="recipe-card">
+            <h2>Scrambled Eggs</h2>
+            <div class="recipe-description">
+              <img src="images/scrambled-eggs.webp">
+              <p>
+                Scrambled eggs may be a relatively easy meal to make, but it turns out you
+                are probably doing it wrong - according to chef Gordon Ramsay. Although
+                scrambling a couple of eggs in a pan will result in decent eggs no matter
+                what method you use, the celebrity chef has a unique technique that makes
+                “scrambled eggs to die for" - even if he does say so himself.
+              </p>
+            </div>
+            <ul class="recipe-step-indicator">
+              <li class="active">1</li>
+              <li class="">2</li>
+              <li class="">3</li>
+              <li class="">4</li>
+            </ul>
+            <div class="recipe-step">
+              <p>
+                Place your skillet on the stovetop and turn on the heat. I leave the heat
+                somewhere between medium low and medium, so it warms up but doesn't get too hot.
+              </p>
+              <img src="/images/hot-skillet.jpg" alt="Step 1">
+            </div>
+            <div class="command-bar">
+              <!-- Placeholder to keep flex style --><span></span><button>Next</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="recipe-card">
+            <h2>Cheesy Bacon</h2>
+            <div class="recipe-description">
+              <img src="images/cheesy-bacon.jpg">
+              <p>
+                nd it is the star of one of the most classic hors d’oeuvres out there,
+                the cheese straw. It’s been a while since I made cheese straws, but they
+                were one of the first things I made as a kid where I felt the power and
+                the pleasure of making something that really impressed (and that… shhh…
+                wasn’t really hard). When I picture my 8 year old self passing them at
+                some party my parents were hosting, I can only hope that I wasn’t too
+                eye-rollingly self-satisfied as I held up some little tray saying smugly,
+                “Cheese straw?”
+              </p>
+            </div>
+            <ul class="recipe-step-indicator">
+              <li class="">1</li>
+              <li class="active">2</li>
+              <li class="">3</li>
+            </ul>
+            <div class="recipe-step">
+              <p>
+                You can use any kind of packaged bacon to make these, or go for some
+                high end bacon—either way you have the kind of nibble or appetizer that
+                people stop talking to eat.
+              </p>
+              <img src="/images/hot-skillet.jpg" alt="Step 1">
+            </div>
+            <div class="command-bar">
+              <button>Previous</button><button>Next</button>
+            </div>
+          </div>
         </li>
       </ul>
-      <div v-else>
-        <p>Please select the ingredients you have available to see the recipes you can make!</p>
-      </div>
     </main>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import IngredientSearch from '@/components/IngredientSearch.vue';
-import RecipeCard from '@/components/RecipeCard.vue';
-
-import { uniq, difference } from 'lodash/fp';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    IngredientSearch,
-    RecipeCard,
-  },
-  data() {
-    return {
-      selectedIngredients: [],
-      recipes: [],
-    };
-  },
-  mounted() {
-    fetch('http://localhost:8091/recipes')
-      .then((response) => response.json())
-      .then(({ recipes }) => {
-        this.recipes = recipes;
-      });
-  },
-  computed: {
-    availableIngredients() {
-      return difference(this.ingredients, this.selectedIngredients);
-    },
-    matchingRecipes() {
-      return this.recipes
-        .filter((recipe) => recipe.ingredients
-          .every((recipeIngredient) => this.selectedIngredients
-            .includes(recipeIngredient)));
-    },
-    ingredients() {
-      const allIngredients = this.recipes.flatMap((recipe) => recipe.ingredients);
-      return uniq(allIngredients);
-    },
-  },
-  methods: {
-    addIngredient(ingredient) {
-      this.selectedIngredients = [
-        ...this.selectedIngredients,
-        ingredient,
-      ];
-    },
-    removeIngredient(ingredient) {
-      this.selectedIngredients = this.selectedIngredients
-        .filter((selectedIngredient) => selectedIngredient !== ingredient);
-    },
+    FontAwesomeIcon,
   },
 };
 </script>
 
 <style lang="scss">
-@import "@/styles/_reset.scss";
-@import "@/styles/_sizes.scss";
-
-body {
-  display: flex;
-  justify-content: center;
-}
-
-#the-app {
-  width: 800px;
-  > main {
-    margin-bottom: $xxxl;
-  }
-}
 </style>
