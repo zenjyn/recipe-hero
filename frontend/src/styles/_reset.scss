@@ -69,4 +69,8 @@ body {
 }
 img {
   max-width: 100%;
+  border-radius: $border-radius;
+}
+h2 {
+  @include heading-font-2;
 }
