@@ -15,21 +15,12 @@
           </button>
         </form>
         <ul class="ingredients">
-          <li class="recipe-ingredient">
-            <span>Eggs</span>
-            <FontAwesomeIcon icon="minus-circle" class="icon" />
-          </li>
-          <li class="recipe-ingredient">
-            <span>Bread</span>
-            <FontAwesomeIcon icon="minus-circle" class="icon" />
-          </li>
-          <li class="recipe-ingredient">
-            <span>Cheese</span>
-            <FontAwesomeIcon icon="minus-circle" class="icon" />
-          </li>
-          <li class="recipe-ingredient">
-            <span>Bacon</span>
-            <FontAwesomeIcon icon="minus-circle" class="icon" />
+          <li
+            v-for="ingredient in ingredients"
+            class="recipe-ingredient"
+            :key="ingredient"
+          >
+            <RecipeIngredient @remove-ingredient="removeIngredient" :ingredient="ingredient" />
           </li>
         </ul>
       </section>
@@ -43,7 +34,9 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import RecipeIngredient from '@/components/RecipeIngredient.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
 
 export default {
@@ -51,16 +44,23 @@ export default {
   data() {
     return {
       recipes: [],
+      ingredients: ['eggs', 'Bread', 'cheese', 'baCon ', 'KEROSINE'],
       error: null,
     };
   },
   components: {
     FontAwesomeIcon,
+    RecipeIngredient,
     RecipeCard,
   },
   computed: {
     filteredRecipes() {
       return this.recipes;
+    },
+  },
+  methods: {
+    removeIngredient(ingredient) {
+      this.ingredients = _.pull(this.ingredients, ingredient);
     },
   },
   created() {
