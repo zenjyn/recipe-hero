@@ -45,7 +45,10 @@ export default {
       return _.difference(this.ingredients, this.selectedIngredients);
     },
     filteredRecipes() {
-      return this.recipes;
+      return this.recipes
+        .filter(
+          (recipe) => _.intersection(recipe.ingredients, this.selectedIngredients).length > 0,
+        ); // wtf linter
     },
   },
   methods: {
