@@ -4,26 +4,12 @@
       <h1>Recipe Hero</h1>
     </header>
     <main>
-      <section class="ingredient-search">
-        <h2>Search Recipes By Ingredient</h2>
-        <form class="ingredient-picker">
-          <select placeholder="Add an ingredient">
-            <option disabled="">Pick an ingredient</option>
-          </select>
-          <button>
-            <FontAwesomeIcon icon="plus" class="icon" />
-          </button>
-        </form>
-        <ul class="ingredients">
-          <li
-            v-for="ingredient in ingredients"
-            class="recipe-ingredient"
-            :key="ingredient"
-          >
-            <RecipeIngredient @remove-ingredient="removeIngredient" :ingredient="ingredient" />
-          </li>
-        </ul>
-      </section>
+      <IngredientSearch
+        :unselectedIngredients="unselectedIngredients"
+        :selectedIngredients="selectedIngredients"
+        @add-ingredient="addIngredient"
+        @remove-ingredient="removeIngredient"
+      />
       <ul class="recipes">
         <li v-for="recipe in filteredRecipes" :key="recipe.name">
           <RecipeCard :recipe="recipe" />
@@ -35,8 +21,7 @@
 
 <script>
 import _ from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import RecipeIngredient from '@/components/RecipeIngredient.vue';
+import IngredientSearch from '@/components/IngredientSearch.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
 
 export default {
@@ -44,23 +29,32 @@ export default {
   data() {
     return {
       recipes: [],
-      ingredients: ['eggs', 'Bread', 'cheese', 'baCon ', 'KEROSINE'],
+      selectedIngredients: [],
       error: null,
     };
   },
   components: {
-    FontAwesomeIcon,
-    RecipeIngredient,
+    IngredientSearch,
     RecipeCard,
   },
   computed: {
+    ingredients() {
+      return _.uniq(this.recipes.flatMap((recipe) => recipe.ingredients));
+    },
+    unselectedIngredients() {
+      return _.difference(this.ingredients, this.selectedIngredients);
+    },
     filteredRecipes() {
       return this.recipes;
     },
   },
   methods: {
+    addIngredient(ingredient) {
+      this.selectedIngredients.push(ingredient);
+    },
     removeIngredient(ingredient) {
-      this.ingredients = _.pull(this.ingredients, ingredient);
+      this.selectedIngredients = this.selectedIngredients
+        .filter((selectedIngredient) => selectedIngredient !== ingredient);
     },
   },
   created() {

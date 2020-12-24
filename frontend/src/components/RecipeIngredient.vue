@@ -1,6 +1,6 @@
 <template>
   <span>{{ ingredient }}</span>
-  <FontAwesomeIcon @click="remove" icon="minus-circle" class="icon" />
+  <FontAwesomeIcon @click.prevent="remove" icon="minus-circle" class="icon" />
 </template>
 
 <script>
