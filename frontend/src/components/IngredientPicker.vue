@@ -1,7 +1,11 @@
 <template>
-  <form @submit.prevent="addIngredient" class="ingredient-picker">
+  <form
+    @submit.prevent="addIngredient"
+    class="ingredient-picker"
+    v-if="showSelect"
+  >
     <select v-model="selectedIngredient" placeholder="Add an ingredient">
-      <option disabled>Pick an ingredient</option>
+      <option disabled selected="selected">Pick an ingredient</option>
       <option v-for="ingredient in ingredients"
         :key="ingredient"
         :value="ingredient">{{ ingredient }}</option>
@@ -28,6 +32,11 @@ export default {
     return {
       selectedIngredient: '',
     };
+  },
+  computed: {
+    showSelect() {
+      return !_.isEmpty(this.ingredients);
+    },
   },
   methods: {
     addIngredient() {
